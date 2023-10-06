@@ -108,17 +108,12 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
 
         context?.withStyledAttributes(attrs, R.styleable.PhoneNumberPicker) {
             val textColor = getColor(R.styleable.PhoneNumberPicker_textColor, DEFAULT_TEXT_COLOR)
-            val borderColor = getColor(
-                R.styleable.PhoneNumberPicker_outlineBorderColor,
-                DEFAULT_OUTLINE_BORDER_COLOR
-            )
             val textSize =
                 getDimensionPixelSize(R.styleable.PhoneNumberPicker_textSize, DEFAULT_TEXT_SIZE)
             val defaultCountry =
                 getString(R.styleable.PhoneNumberPicker_defaultCountry) ?: DEFAULT_COUNTRY_KEY
             val continents =
                 getInteger(R.styleable.PhoneNumberPicker_continents, DEFAULT_CONTINENT_KEY)
-            val maxLength = getInteger(R.styleable.PhoneNumberPicker_maxLength, DEFAULT_MAX_LENGTH)
 
             mCountries = CountryFactory.onlyContinents(continents)
 
@@ -126,7 +121,6 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
                 phoneNumber.disableCopyPaste()
                 phoneNumber.setTextColor(textColor)
                 phoneNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize.toFloat())
-                phoneNumberLayout.boxStrokeColor = borderColor
                 mSelectedCountry = Country.byIso2(defaultCountry, mCountries) ?: mCountries[0]
                 loadSelectedCountry()
             }
