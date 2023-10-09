@@ -41,7 +41,7 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
 
     private var textChangedListener: MaskedTextChangedListener? = null
     private val numberUtils by lazy { FormatNumberUtils(context) }
-    private var phoneChangCallback: ((phone: String) -> Unit)? = null
+    private var phoneChangCallback: ((phoneAndIso: Pair<String, String>) -> Unit)? = null
 
     /**
      * To keep track of the selected country
@@ -263,7 +263,7 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
                             "PHONE",
                             "extractedValue = $extractedValue formattedValue = $formattedValue "
                         )
-                        phoneChangCallback?.invoke(extractedValue)
+                        phoneChangCallback?.invoke(extractedValue to mSelectedCountry.iso2)
                     }
                 }
             )
@@ -391,7 +391,7 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
         binding.phoneNumber.setBackgroundResource(backId)
     }
 
-    fun setPhoneChangeCallback(callback: (String) -> Unit) {
+    fun setPhoneChangeCallback(callback: (Pair<String, String>) -> Unit) {
         phoneChangCallback = callback
     }
 

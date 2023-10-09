@@ -1,6 +1,7 @@
 package com.yasserakbbach.phonenumberpicker.utils
 
 import android.content.Context
+import android.util.Log
 import io.michaelrocks.libphonenumber.android.NumberParseException
 import io.michaelrocks.libphonenumber.android.PhoneNumberUtil
 import io.michaelrocks.libphonenumber.android.Phonenumber
@@ -56,6 +57,18 @@ class FormatNumberUtils(context: Context) {
         } catch (e: Exception) {
             false
         }
+    }
+
+    fun getCountryIsoCode(number: String): String? {
+        val validatedNumber = if (number.startsWith("+")) number else "+$number"
+
+        val phoneNumber = try {
+            phoneUtil.parse(validatedNumber, null)
+        } catch (e: NumberParseException) {
+            null
+        } ?: return null
+
+        return phoneUtil.getRegionCodeForCountryCode(phoneNumber.countryCode)
     }
 
 }
