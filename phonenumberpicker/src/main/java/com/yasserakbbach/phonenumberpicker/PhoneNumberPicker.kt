@@ -399,6 +399,13 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
         phoneChangCallback = null
     }
 
+    fun clearPhone() {
+        with(binding) {
+            phoneNumber.text?.clear()
+            phoneNumber.setText("")
+        }
+    }
+
     companion object {
 
         var DEFAULT_TEXT_COLOR = R.color.black
