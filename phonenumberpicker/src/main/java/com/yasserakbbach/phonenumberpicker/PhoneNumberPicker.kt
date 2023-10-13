@@ -402,6 +402,7 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
     fun clearPhone() {
         with(binding) {
             phoneNumber.text?.clear()
+            phoneNumber.setText(mSelectedCountry.countryCodeFormatted)
         }
     }
 
