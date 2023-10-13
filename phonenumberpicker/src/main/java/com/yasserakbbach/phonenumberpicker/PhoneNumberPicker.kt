@@ -406,6 +406,16 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
         }
     }
 
+    fun setPhoneNumber(phone: String) {
+        numberUtils.getCountryIsoCode(phone)?.let { isoCode ->
+            numberUtils.parsePhoneNumber(phone, isoCode)?.let { number ->
+                numberUtils.formatPhoneNumber(number)?.let {
+                    binding.phoneNumber.setText(phone)
+                }
+            }
+        } ?: binding.phoneNumber.setText(phone)
+    }
+
     companion object {
 
         var DEFAULT_TEXT_COLOR = R.color.black
