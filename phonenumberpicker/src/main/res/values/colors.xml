@@ -2,4 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="outlineBorderColor">#515151</color>
+    <color name="phoneDividerColor">#E0E3E7</color>
+    <color name="dark">#2C363F</color>
 </resources>

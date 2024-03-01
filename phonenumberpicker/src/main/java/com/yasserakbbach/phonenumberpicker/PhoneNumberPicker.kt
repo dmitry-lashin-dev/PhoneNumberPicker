@@ -42,6 +42,7 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
     private var textChangedListener: MaskedTextChangedListener? = null
     private val numberUtils by lazy { FormatNumberUtils(context) }
     private var phoneChangCallback: ((phoneAndIso: Pair<String, String>) -> Unit)? = null
+    private var shouldBlockCountrySelectionEvent: Boolean = false
 
     /**
      * To keep track of the selected country
@@ -92,13 +93,18 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
 
         addView(binding.root)
         binding.apply {
-            phoneNumberLayout.setStartIconOnClickListener {
-                initCountryList()
-            }
+            ivCountryFlag.setOnClickListener { showCountrySelectionDialog() }
+            ivSelectArrow.setOnClickListener { showCountrySelectionDialog() }
         }
         initAttributes()
         preventDeletion(mSelectedCountry.countryCodeFormatted)
         focusSelectionToEnd()
+    }
+
+    private fun showCountrySelectionDialog() {
+        if (!shouldBlockCountrySelectionEvent) {
+            initCountryList()
+        }
     }
 
     /**
@@ -237,9 +243,11 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
      */
     private fun loadSelectedCountry() {
         binding.apply {
-            phoneNumberLayout.startIconDrawable = ContextCompat.getDrawable(
-                context,
-                loadCountryFlag(mSelectedCountry.resourceNameDrawable)
+            ivCountryFlag.setImageDrawable(
+                ContextCompat.getDrawable(
+                    context,
+                    loadCountryFlag(mSelectedCountry.resourceNameDrawable)
+                )
             )
             phoneNumber.removeTextChangedListener(textChangedListener)
             val formattedNumber = numberUtils.formatPhoneNumber(
