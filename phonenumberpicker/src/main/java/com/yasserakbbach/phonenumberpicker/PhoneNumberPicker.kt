@@ -124,9 +124,9 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
             mCountries = CountryFactory.onlyContinents(continents)
 
             binding.apply {
-                phoneNumber.disableCopyPaste()
-                phoneNumber.setTextColor(textColor)
-                phoneNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize.toFloat())
+                etPhoneNumber.disableCopyPaste()
+                etPhoneNumber.setTextColor(textColor)
+                etPhoneNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize.toFloat())
                 mSelectedCountry = Country.byIso2(defaultCountry, mCountries) ?: mCountries[0]
                 loadSelectedCountry()
             }
@@ -200,7 +200,7 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
 
         mSelectedCountry = country
         loadSelectedCountry()
-        //val phoneNumber = binding.phoneNumber
+        //val etPhoneNumber = binding.etPhoneNumber
         val countryCode = country.countryCodeFormatted
 
         focusSelectionToEnd()
@@ -217,7 +217,7 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
      */
     private fun preventDeletion(countryCode: String) {
 
-        binding.phoneNumber.apply {
+        binding.etPhoneNumber.apply {
             setOnKeyListener { _, keyCode, _ ->
 
                 KeyEvent.KEYCODE_DEL == keyCode && countryCode.length == this.text.toString().length
@@ -231,9 +231,9 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
     private fun focusSelectionToEnd() {
 
         binding.apply {
-            phoneNumber.requestFocus()
-            phoneNumber.setOnClickListener {
-                phoneNumber.setSelection(phoneNumber.text.toString().length)
+            etPhoneNumber.requestFocus()
+            etPhoneNumber.setOnClickListener {
+                etPhoneNumber.setSelection(etPhoneNumber.text.toString().length)
             }
         }
     }
@@ -249,7 +249,7 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
                     loadCountryFlag(mSelectedCountry.resourceNameDrawable)
                 )
             )
-            phoneNumber.removeTextChangedListener(textChangedListener)
+            etPhoneNumber.removeTextChangedListener(textChangedListener)
             val formattedNumber = numberUtils.formatPhoneNumber(
                 numberUtils.getExampleNumber(mSelectedCountry.iso2)
             )
@@ -257,7 +257,7 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
                 formattedNumber.orEmpty()
             )
             textChangedListener = MaskedTextChangedListener.installOn(
-                phoneNumber,
+                etPhoneNumber,
                 pattern,
                 emptyList(),
                 AffinityCalculationStrategy.WHOLE_STRING,
@@ -275,7 +275,7 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
                     }
                 }
             )
-            phoneNumber.setText(mSelectedCountry.countryCodeFormatted)
+            etPhoneNumber.setText(mSelectedCountry.countryCodeFormatted)
         }
     }
 
@@ -289,7 +289,7 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
      * Get full phone number (with +)
      */
     fun getFullPhoneNumber() =
-        binding.phoneNumber.text.toString()
+        binding.etPhoneNumber.text.toString()
 
     /**
      * Get the selected country
@@ -332,7 +332,7 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
      */
     fun setTextColor(@ColorRes color: Int) {
 
-        binding.phoneNumber.setTextColor(
+        binding.etPhoneNumber.setTextColor(
             ContextCompat.getColor(context, color)
         )
     }
@@ -344,26 +344,7 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
      */
     fun setTextColor(color: String) {
 
-        binding.phoneNumber.setTextColor(Color.parseColor(color))
-    }
-
-    /**
-     * Change the outline border color of the TextInputLayout by resource color,
-     * XML attribute: app:outlineBorderColor="@color/blue"
-     */
-    fun setOutlineBorderColor(@ColorRes color: Int) {
-
-        binding.phoneNumberLayout.boxStrokeColor = ContextCompat.getColor(context, color)
-    }
-
-    /**
-     * Change the outline border color of the TextInputLayout by hexadecimal color,
-     * e.g: #0000FF (Blue color)
-     * XML attribute: app:outlineBorderColor="#0000FF"
-     */
-    fun setOutlineBorderColor(color: String) {
-
-        binding.phoneNumberLayout.boxStrokeColor = Color.parseColor(color)
+        binding.etPhoneNumber.setTextColor(Color.parseColor(color))
     }
 
     /**
@@ -372,7 +353,7 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
      */
     fun setTextSize(size: Float) {
 
-        binding.phoneNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX, size)
+        binding.etPhoneNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX, size)
     }
 
     /**
@@ -392,11 +373,11 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
      */
     fun setMaxLength(maxLength: Int) {
 
-        binding.phoneNumber.filters = arrayOf(InputFilter.LengthFilter(maxLength))
+        binding.etPhoneNumber.filters = arrayOf(InputFilter.LengthFilter(maxLength))
     }
 
     fun setCustomBackground(@DrawableRes backId: Int) {
-        binding.phoneNumber.setBackgroundResource(backId)
+        binding.root.setBackgroundResource(backId)
     }
 
     fun setPhoneChangeCallback(callback: (Pair<String, String>) -> Unit) {
@@ -409,8 +390,8 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
 
     fun clearPhone() {
         with(binding) {
-            phoneNumber.text?.clear()
-            phoneNumber.setText(mSelectedCountry.countryCodeFormatted)
+            etPhoneNumber.text?.clear()
+            etPhoneNumber.setText(mSelectedCountry.countryCodeFormatted)
         }
     }
 
@@ -418,10 +399,14 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
         numberUtils.getCountryIsoCode(phone)?.let { isoCode ->
             numberUtils.parsePhoneNumber(phone, isoCode)?.let { number ->
                 numberUtils.formatPhoneNumber(number)?.let {
-                    binding.phoneNumber.setText(phone)
+                    binding.etPhoneNumber.setText(phone)
                 }
             }
-        } ?: binding.phoneNumber.setText(phone)
+        } ?: binding.etPhoneNumber.setText(phone)
+    }
+
+    fun setAbilityToBlockCountryFlag(shouldBlock: Boolean) {
+        shouldBlockCountrySelectionEvent = shouldBlock
     }
 
     companion object {

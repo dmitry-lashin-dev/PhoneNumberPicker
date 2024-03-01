@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="48dp">
 
     <ImageView
         android:id="@+id/ivCountryFlag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/phoneNumberLayout"
+        app:layout_constraintBottom_toBottomOf="@id/etPhoneNumber"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/phoneNumberLayout"
+        app:layout_constraintTop_toTopOf="@id/etPhoneNumber"
         tools:src="@drawable/ic_country_flag_ad" />
 
     <ImageView
@@ -20,41 +20,28 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:src="@drawable/ic_drop_down"
-        app:layout_constraintBottom_toBottomOf="@id/phoneNumberLayout"
+        app:layout_constraintBottom_toBottomOf="@id/etPhoneNumber"
         app:layout_constraintStart_toEndOf="@id/ivCountryFlag"
-        app:layout_constraintTop_toTopOf="@id/phoneNumberLayout" />
+        app:layout_constraintTop_toTopOf="@id/etPhoneNumber" />
 
     <View
         android:id="@+id/phoneDivider"
         android:layout_width="1dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:background="@color/phoneDividerColor"
-        app:layout_constraintBottom_toBottomOf="@id/phoneNumberLayout"
-        app:layout_constraintStart_toEndOf="@id/ivSelectArrow"
-        app:layout_constraintTop_toTopOf="@id/phoneNumberLayout" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/phoneNumberLayout"
-        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginStart="8dp"
-        app:boxBackgroundMode="none"
+        android:background="@color/phoneDividerColor"
+        app:layout_constraintStart_toEndOf="@id/ivSelectArrow" />
+
+    <EditText
+        android:id="@+id/etPhoneNumber"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:background="@null"
+        android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/phoneDivider"
-        app:layout_constraintTop_toTopOf="parent"
-        app:startIconTint="@null">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/phone_number"
-            style="@style/BodyOneTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
-            android:inputType="phone"
-            tools:text="@string/morocco_country_code" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        tools:text="@string/morocco_country_code" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
