@@ -409,6 +409,10 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
         shouldBlockCountrySelectionEvent = shouldBlock
     }
 
+    fun setDividerColor(@ColorRes colorId: Int) {
+        binding.phoneDivider.setBackgroundColor(ContextCompat.getColor(context, colorId))
+    }
+
     companion object {
 
         var DEFAULT_TEXT_COLOR = R.color.black
