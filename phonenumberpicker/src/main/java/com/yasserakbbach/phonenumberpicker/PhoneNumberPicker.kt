@@ -14,6 +14,7 @@ import androidx.annotation.DrawableRes
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
+import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.redmadrobot.inputmask.MaskedTextChangedListener
@@ -407,10 +408,19 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
 
     fun setAbilityToBlockCountryFlag(shouldBlock: Boolean) {
         shouldBlockCountrySelectionEvent = shouldBlock
+        binding.ivSelectArrow.isVisible = shouldBlock
     }
 
     fun setDividerColor(@ColorRes colorId: Int) {
         binding.phoneDivider.setBackgroundColor(ContextCompat.getColor(context, colorId))
+    }
+
+    fun setPhoneDividerVisibility(isVisible: Boolean) {
+        binding.phoneDivider.isVisible = isVisible
+    }
+
+    fun setPickerDividerVisibility(isVisible: Boolean) {
+        binding.pickerDivider.isVisible = isVisible
     }
 
     companion object {
