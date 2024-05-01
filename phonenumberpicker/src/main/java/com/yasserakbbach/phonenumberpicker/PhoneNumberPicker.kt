@@ -408,7 +408,7 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
 
     fun setAbilityToBlockCountryFlag(shouldBlock: Boolean) {
         shouldBlockCountrySelectionEvent = shouldBlock
-        binding.ivSelectArrow.isVisible = shouldBlock
+        binding.ivSelectArrow.isVisible = !shouldBlock
     }
 
     fun setDividerColor(@ColorRes colorId: Int) {
