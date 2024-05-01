@@ -423,6 +423,10 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
         binding.pickerDivider.isVisible = isVisible
     }
 
+    fun setPickerDividerColor(@ColorRes colorId: Int){
+        binding.pickerDivider.setBackgroundColor(ContextCompat.getColor(context, colorId))
+    }
+
     companion object {
 
         var DEFAULT_TEXT_COLOR = R.color.black
