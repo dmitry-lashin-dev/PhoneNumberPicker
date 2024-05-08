@@ -36,7 +36,7 @@ import java.util.*
  *
  * @author: Yasser AKBBACH
  */
-class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
+open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
     LinearLayout(context, attrs),
     CountryAdapter.Presenter {
 
@@ -53,7 +53,7 @@ class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?) :
     /**
      * Reference of the layout to handle the UI changes
      */
-    private val binding: PhoneNumberPickerBinding by lazy {
+    protected val binding: PhoneNumberPickerBinding by lazy {
         PhoneNumberPickerBinding.inflate(
             LayoutInflater.from(context), this, false
         )
