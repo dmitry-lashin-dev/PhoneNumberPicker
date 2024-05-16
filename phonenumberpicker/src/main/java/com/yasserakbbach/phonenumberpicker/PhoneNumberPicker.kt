@@ -48,7 +48,7 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
     /**
      * To keep track of the selected country
      */
-    private lateinit var mSelectedCountry: Country
+    protected lateinit var mSelectedCountry: Country
 
     /**
      * Reference of the layout to handle the UI changes
@@ -216,7 +216,7 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
     /**
      * Prevent deletion on certain point to avoid country code getting wiped
      */
-    private fun preventDeletion(countryCode: String) {
+    protected fun preventDeletion(countryCode: String) {
 
         binding.etPhoneNumber.apply {
             setOnKeyListener { _, keyCode, _ ->
