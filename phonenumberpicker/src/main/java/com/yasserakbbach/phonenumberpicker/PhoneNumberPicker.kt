@@ -216,7 +216,7 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
     /**
      * Prevent deletion on certain point to avoid country code getting wiped
      */
-    protected fun preventDeletion(countryCode: String) {
+    open fun preventDeletion(countryCode: String) {
 
         binding.etPhoneNumber.apply {
             setOnKeyListener { _, keyCode, _ ->
@@ -423,7 +423,7 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
         binding.pickerDivider.isVisible = isVisible
     }
 
-    fun setPickerDividerColor(@ColorRes colorId: Int){
+    fun setPickerDividerColor(@ColorRes colorId: Int) {
         binding.pickerDivider.setBackgroundColor(ContextCompat.getColor(context, colorId))
     }
 
