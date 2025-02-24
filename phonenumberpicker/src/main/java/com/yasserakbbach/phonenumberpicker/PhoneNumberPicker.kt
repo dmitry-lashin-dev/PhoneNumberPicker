@@ -244,12 +244,9 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
      */
     private fun loadSelectedCountry() {
         binding.apply {
-            ivCountryFlag.setImageDrawable(
-                ContextCompat.getDrawable(
-                    context,
-                    loadCountryFlag(mSelectedCountry.resourceNameDrawable)
-                )
-            )
+            loadCountryFlag(mSelectedCountry.resourceNameDrawable)?.let { resId ->
+                ivCountryFlag.setImageDrawable(ContextCompat.getDrawable(context, resId))
+            }
             etPhoneNumber.removeTextChangedListener(textChangedListener)
             val formattedNumber = numberUtils.formatPhoneNumber(
                 numberUtils.getExampleNumber(mSelectedCountry.iso2)
@@ -283,8 +280,18 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
     /**
      * Get the drawable id of a given drawable name
      */
-    private fun loadCountryFlag(drawableName: String) =
-        context.resources.getIdentifier(drawableName, "drawable", context.packageName)
+    private fun loadCountryFlag(drawableName: String): Int? {
+        return try {
+            context.resources.getIdentifier(drawableName, "drawable", context.packageName)
+        } catch (exception: Exception) {
+            Log.e(
+                "PhonePickerError", "The method loadCountryFlag() could not find" +
+                        " the ID of the resourced resource with the name $drawableName"
+            )
+            null
+        }
+    }
+
 
     /**
      * Get full phone number (with +)
