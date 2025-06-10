@@ -8,6 +8,7 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.KeyEvent
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.LinearLayout
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
@@ -384,6 +385,18 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
     fun setMaxLength(maxLength: Int) {
 
         binding.etPhoneNumber.filters = arrayOf(InputFilter.LengthFilter(maxLength))
+    }
+
+    fun setOnPhoneFieldFocusListener(callBack: (Boolean) -> Unit) {
+        binding.etPhoneNumber.onFocusChangeListener = object : OnFocusChangeListener {
+            override fun onFocusChange(p0: View?, p1: Boolean) {
+                callBack.invoke(p1)
+            }
+        }
+    }
+
+    fun removeFocusListener(){
+        binding.etPhoneNumber.onFocusChangeListener = null
     }
 
     fun setCustomBackground(@DrawableRes backId: Int) {
