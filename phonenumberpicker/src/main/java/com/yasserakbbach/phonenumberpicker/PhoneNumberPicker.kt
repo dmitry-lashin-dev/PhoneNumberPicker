@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.text.InputFilter
 import android.util.AttributeSet
 import android.util.Log
-import android.util.Pair
 import android.util.TypedValue
 import android.view.KeyEvent
 import android.view.LayoutInflater
