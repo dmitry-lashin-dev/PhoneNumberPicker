@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.text.InputFilter
 import android.util.AttributeSet
 import android.util.Log
+import android.util.Pair
 import android.util.TypedValue
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -44,6 +45,7 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
     private val numberUtils by lazy { FormatNumberUtils(context) }
     private var phoneChangCallback: ((phoneAndIso: Pair<String, String>) -> Unit)? = null
     private var shouldBlockCountrySelectionEvent: Boolean = false
+    private var phoneNumber: String? = null
 
     /**
      * To keep track of the selected country
@@ -269,6 +271,7 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
                             "PHONE",
                             "extractedValue = $extractedValue formattedValue = $formattedValue "
                         )
+                        phoneNumber = extractedValue
                         phoneChangCallback?.invoke(extractedValue to mSelectedCountry.iso2)
                     }
                 }
@@ -390,6 +393,10 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
 
     fun setPhoneChangeCallback(callback: (Pair<String, String>) -> Unit) {
         phoneChangCallback = callback
+    }
+
+    fun getPhoneData(): Pair<String?, String> {
+        return phoneNumber to mSelectedCountry.iso2
     }
 
     fun removePhoneChangeCallback() {
