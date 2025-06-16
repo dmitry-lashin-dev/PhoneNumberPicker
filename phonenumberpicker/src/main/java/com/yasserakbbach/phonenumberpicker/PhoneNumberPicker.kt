@@ -9,6 +9,7 @@ import android.util.TypedValue
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
@@ -395,7 +396,7 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
         }
     }
 
-    fun removeFocusListener(){
+    fun removeFocusListener() {
         binding.etPhoneNumber.onFocusChangeListener = null
     }
 
@@ -451,6 +452,10 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
 
     fun setPickerDividerColor(@ColorRes colorId: Int) {
         binding.pickerDivider.setBackgroundColor(ContextCompat.getColor(context, colorId))
+    }
+
+    fun getParentEditText(): EditText {
+        return binding.etPhoneNumber
     }
 
     companion object {
