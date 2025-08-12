@@ -4,12 +4,13 @@ package com.yasserakbbach.phonenumberpicker.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatEditText;
 import androidx.viewbinding.ViewBinding;
-import com.google.android.material.textfield.TextInputLayout;
+import androidx.viewbinding.ViewBindings;
 import com.yasserakbbach.phonenumberpicker.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -20,16 +21,29 @@ public final class PhoneNumberPickerBinding implements ViewBinding {
   private final LinearLayout rootView;
 
   @NonNull
-  public final AppCompatEditText phoneNumber;
+  public final EditText etPhoneNumber;
 
   @NonNull
-  public final TextInputLayout phoneNumberLayout;
+  public final ImageView ivCountryFlag;
 
-  private PhoneNumberPickerBinding(@NonNull LinearLayout rootView,
-      @NonNull AppCompatEditText phoneNumber, @NonNull TextInputLayout phoneNumberLayout) {
+  @NonNull
+  public final ImageView ivSelectArrow;
+
+  @NonNull
+  public final View phoneDivider;
+
+  @NonNull
+  public final View pickerDivider;
+
+  private PhoneNumberPickerBinding(@NonNull LinearLayout rootView, @NonNull EditText etPhoneNumber,
+      @NonNull ImageView ivCountryFlag, @NonNull ImageView ivSelectArrow,
+      @NonNull View phoneDivider, @NonNull View pickerDivider) {
     this.rootView = rootView;
-    this.phoneNumber = phoneNumber;
-    this.phoneNumberLayout = phoneNumberLayout;
+    this.etPhoneNumber = etPhoneNumber;
+    this.ivCountryFlag = ivCountryFlag;
+    this.ivSelectArrow = ivSelectArrow;
+    this.phoneDivider = phoneDivider;
+    this.pickerDivider = pickerDivider;
   }
 
   @Override
@@ -59,19 +73,38 @@ public final class PhoneNumberPickerBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.phone_number;
-      AppCompatEditText phoneNumber = rootView.findViewById(id);
-      if (phoneNumber == null) {
+      id = R.id.etPhoneNumber;
+      EditText etPhoneNumber = ViewBindings.findChildViewById(rootView, id);
+      if (etPhoneNumber == null) {
         break missingId;
       }
 
-      id = R.id.phoneNumberLayout;
-      TextInputLayout phoneNumberLayout = rootView.findViewById(id);
-      if (phoneNumberLayout == null) {
+      id = R.id.ivCountryFlag;
+      ImageView ivCountryFlag = ViewBindings.findChildViewById(rootView, id);
+      if (ivCountryFlag == null) {
         break missingId;
       }
 
-      return new PhoneNumberPickerBinding((LinearLayout) rootView, phoneNumber, phoneNumberLayout);
+      id = R.id.ivSelectArrow;
+      ImageView ivSelectArrow = ViewBindings.findChildViewById(rootView, id);
+      if (ivSelectArrow == null) {
+        break missingId;
+      }
+
+      id = R.id.phoneDivider;
+      View phoneDivider = ViewBindings.findChildViewById(rootView, id);
+      if (phoneDivider == null) {
+        break missingId;
+      }
+
+      id = R.id.pickerDivider;
+      View pickerDivider = ViewBindings.findChildViewById(rootView, id);
+      if (pickerDivider == null) {
+        break missingId;
+      }
+
+      return new PhoneNumberPickerBinding((LinearLayout) rootView, etPhoneNumber, ivCountryFlag,
+          ivSelectArrow, phoneDivider, pickerDivider);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

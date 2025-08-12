@@ -19,9 +19,6 @@ import androidx.core.content.withStyledAttributes
 import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.redmadrobot.inputmask.MaskedTextChangedListener
-import com.redmadrobot.inputmask.helper.AffinityCalculationStrategy
-import com.yasserakbbach.phonenumberpicker.databinding.CountryListBinding
 import com.yasserakbbach.phonenumberpicker.databinding.PhoneNumberPickerBinding
 import com.yasserakbbach.phonenumberpicker.models.Country
 import com.yasserakbbach.phonenumberpicker.adapters.CountryAdapter
@@ -32,6 +29,9 @@ import com.yasserakbbach.phonenumberpicker.utils.CountryPattern
 import com.yasserakbbach.phonenumberpicker.utils.FormatNumberUtils
 import com.yasserakbbach.phonenumberpicker.utils.disableCopyPaste
 import java.util.*
+import com.redmadrobot.inputmask.MaskedTextChangedListener
+import com.redmadrobot.inputmask.helper.AffinityCalculationStrategy
+import com.yasserakbbach.phonenumberpicker.databinding.CountryListViewBinding
 
 /**
  * Basic widget built on Material Text Input to wrap picking phone number.
@@ -81,8 +81,8 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
     /**
      * Bottom sheet layout of country list
      */
-    private val countryBinding: CountryListBinding by lazy {
-        CountryListBinding.inflate(LayoutInflater.from(context), this, false)
+    private val countryBinding: CountryListViewBinding by lazy {
+        CountryListViewBinding.inflate(LayoutInflater.from(context), this, false)
     }
 
     /**
@@ -266,7 +266,8 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
                     override fun onTextChanged(
                         maskFilled: Boolean,
                         extractedValue: String,
-                        formattedValue: String
+                        formattedValue: String,
+                        tailPlaceholder: String
                     ) {
                         Log.i(
                             "PHONE",
@@ -461,7 +462,6 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
     companion object {
 
         var DEFAULT_TEXT_COLOR = R.color.black
-        var DEFAULT_OUTLINE_BORDER_COLOR = R.color.outlineBorderColor
         const val DEFAULT_TEXT_SIZE = 18
         const val DEFAULT_COUNTRY_KEY = "ma"
         const val DEFAULT_CONTINENT_KEY = 63

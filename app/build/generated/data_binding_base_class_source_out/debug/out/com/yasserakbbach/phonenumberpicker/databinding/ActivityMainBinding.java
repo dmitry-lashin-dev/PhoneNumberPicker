@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewbinding.ViewBinding;
+import androidx.viewbinding.ViewBindings;
 import com.yasserakbbach.phonenumberpicker.PhoneNumberPicker;
 import com.yasserakbbach.phonenumberpicker.R;
 import java.lang.NullPointerException;
@@ -55,7 +56,7 @@ public final class ActivityMainBinding implements ViewBinding {
     int id;
     missingId: {
       id = R.id.phone_number;
-      PhoneNumberPicker phoneNumber = rootView.findViewById(id);
+      PhoneNumberPicker phoneNumber = ViewBindings.findChildViewById(rootView, id);
       if (phoneNumber == null) {
         break missingId;
       }

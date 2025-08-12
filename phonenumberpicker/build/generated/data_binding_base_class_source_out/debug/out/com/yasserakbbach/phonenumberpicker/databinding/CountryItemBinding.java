@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
+import androidx.viewbinding.ViewBindings;
 import com.google.android.material.card.MaterialCardView;
 import com.yasserakbbach.phonenumberpicker.R;
 import java.lang.NullPointerException;
@@ -64,19 +65,19 @@ public final class CountryItemBinding implements ViewBinding {
     int id;
     missingId: {
       id = R.id.country_code;
-      TextView countryCode = rootView.findViewById(id);
+      TextView countryCode = ViewBindings.findChildViewById(rootView, id);
       if (countryCode == null) {
         break missingId;
       }
 
       id = R.id.country_flag;
-      ImageView countryFlag = rootView.findViewById(id);
+      ImageView countryFlag = ViewBindings.findChildViewById(rootView, id);
       if (countryFlag == null) {
         break missingId;
       }
 
       id = R.id.country_name;
-      TextView countryName = rootView.findViewById(id);
+      TextView countryName = ViewBindings.findChildViewById(rootView, id);
       if (countryName == null) {
         break missingId;
       }
