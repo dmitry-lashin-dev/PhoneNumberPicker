@@ -142,6 +142,10 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
                 etPhoneNumber.setTextColor(textColor)
                 etPhoneNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize.toFloat())
                 mSelectedCountry = Country.byIso2(defaultCountry, mCountries) ?: mCountries[0]
+                Log.d(
+                    "PHONE_DATA",
+                    "changed mSelectedCountry in function initAttributes with data = $mSelectedCountry"
+                )
                 loadSelectedCountry()
             }
         }
@@ -213,6 +217,10 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
     override fun onCountryClick(country: Country) {
 
         mSelectedCountry = country
+        Log.d(
+            "PHONE_DATA",
+            "changed mSelectedCountry in function onCountryClick with data = $mSelectedCountry"
+        )
         loadSelectedCountry()
         //val etPhoneNumber = binding.etPhoneNumber
         val countryCode = country.countryCodeFormatted
@@ -387,6 +395,10 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
     fun setDefaultCountry(iso2: String) {
 
         mSelectedCountry = Country.byIso2(iso2, mCountries) ?: mCountries[0]
+        Log.d(
+            "PHONE_DATA",
+            "changed mSelectedCountry in function setDefaultCountry with data = $mSelectedCountry"
+        )
         loadSelectedCountry()
     }
 

@@ -24,9 +24,19 @@ class MainActivity : AppCompatActivity(), OnCountrySelected {
             //exceptCountries("eh")
             setOnCountrySelected(this@MainActivity)
             //setTextColor("#00FF00")
-            //setDefaultCountry("us")
+            setDefaultCountry("CA")
             //Log.d(TAG, "selected: ${getSelectedCountry()}")
             //setMaxLength(5)
+            setOnPhoneFieldFocusListener { hasFocus ->
+                if (!hasFocus) {
+                    val code = getSelectedCountry().countryCodeFormatted
+                    val phoneData = getPhoneData()
+                    Log.d(
+                        "PHONE_DATA",
+                        "code = $code, phone = ${phoneData.first}, phoneCode = ${phoneData.second}"
+                    )
+                }
+            }
         }
     }
 
