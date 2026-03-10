@@ -39,13 +39,15 @@
             app:layout_constraintStart_toEndOf="@id/ivSelectArrow"
             tools:visibility="gone" />
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/etPhoneNumber"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="8dp"
             android:background="@null"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:inputType="phone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/phoneDivider"

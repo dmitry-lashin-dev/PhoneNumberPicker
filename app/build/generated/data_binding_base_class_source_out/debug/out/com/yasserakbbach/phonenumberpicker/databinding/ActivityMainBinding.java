@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
@@ -22,10 +23,14 @@ public final class ActivityMainBinding implements ViewBinding {
   @NonNull
   public final PhoneNumberPicker phoneNumber;
 
+  @NonNull
+  public final AppCompatEditText testEditField;
+
   private ActivityMainBinding(@NonNull ConstraintLayout rootView,
-      @NonNull PhoneNumberPicker phoneNumber) {
+      @NonNull PhoneNumberPicker phoneNumber, @NonNull AppCompatEditText testEditField) {
     this.rootView = rootView;
     this.phoneNumber = phoneNumber;
+    this.testEditField = testEditField;
   }
 
   @Override
@@ -61,7 +66,13 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityMainBinding((ConstraintLayout) rootView, phoneNumber);
+      id = R.id.testEditField;
+      AppCompatEditText testEditField = ViewBindings.findChildViewById(rootView, id);
+      if (testEditField == null) {
+        break missingId;
+      }
+
+      return new ActivityMainBinding((ConstraintLayout) rootView, phoneNumber, testEditField);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

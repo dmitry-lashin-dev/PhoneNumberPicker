@@ -2,6 +2,8 @@ package com.yasserakbbach.phonenumberpicker
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.yasserakbbach.phonenumberpicker.adapters.OnCountrySelected
 import com.yasserakbbach.phonenumberpicker.databinding.ActivityMainBinding
@@ -9,7 +11,7 @@ import com.yasserakbbach.phonenumberpicker.models.Country
 
 class MainActivity : AppCompatActivity(), OnCountrySelected {
 
-    private val binding : ActivityMainBinding by lazy {
+    private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
 

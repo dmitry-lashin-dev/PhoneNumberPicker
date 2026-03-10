@@ -9,10 +9,10 @@ import android.util.TypedValue
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
@@ -47,6 +47,7 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
     private var phoneChangCallback: ((phoneAndIso: Pair<String, String>) -> Unit)? = null
     private var shouldBlockCountrySelectionEvent: Boolean = false
     private var phoneNumber: String? = null
+    private var onPhoneFieldFocusChangeCallback: ((hasFocus: Boolean) -> Unit)? = null
 
     /**
      * To keep track of the selected country
@@ -96,6 +97,15 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
     init {
 
         addView(binding.root)
+        isFocusable = false
+        isFocusableInTouchMode = false
+        descendantFocusability = FOCUS_AFTER_DESCENDANTS
+
+        viewTreeObserver.addOnGlobalFocusChangeListener { _: View?, _: View? ->
+            val phoneFieldHasFocus = binding.etPhoneNumber.hasFocus()
+            onPhoneFieldFocusChangeCallback?.invoke(phoneFieldHasFocus)
+        }
+
         binding.apply {
             ivCountryFlag.setOnClickListener { showCountrySelectionDialog() }
             ivSelectArrow.setOnClickListener { showCountrySelectionDialog() }
@@ -208,6 +218,7 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
         val countryCode = country.countryCodeFormatted
 
         focusSelectionToEnd()
+        onPhoneFieldFocusChangeCallback?.invoke(true)
 
         // Prevent deleting country code
         preventDeletion(countryCode)
@@ -233,12 +244,11 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
      * Focus input to the last input character
      */
     private fun focusSelectionToEnd() {
-
         binding.apply {
-            etPhoneNumber.requestFocus()
             etPhoneNumber.setOnClickListener {
                 etPhoneNumber.setSelection(etPhoneNumber.text.toString().length)
             }
+            etPhoneNumber.requestFocus()
         }
     }
 
@@ -390,15 +400,11 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
     }
 
     fun setOnPhoneFieldFocusListener(callBack: (Boolean) -> Unit) {
-        binding.etPhoneNumber.onFocusChangeListener = object : OnFocusChangeListener {
-            override fun onFocusChange(p0: View?, p1: Boolean) {
-                callBack.invoke(p1)
-            }
-        }
+        onPhoneFieldFocusChangeCallback = callBack
     }
 
-    fun removeFocusListener() {
-        binding.etPhoneNumber.onFocusChangeListener = null
+    fun removePhoneFieldFocusListener() {
+        onPhoneFieldFocusChangeCallback = null
     }
 
     fun setCustomBackground(@DrawableRes backId: Int) {
@@ -455,7 +461,7 @@ open class PhoneNumberPicker(context: Context, private val attrs: AttributeSet?)
         binding.pickerDivider.setBackgroundColor(ContextCompat.getColor(context, colorId))
     }
 
-    fun getParentEditText(): EditText {
+    fun getParentEditText(): AppCompatEditText {
         return binding.etPhoneNumber
     }
 

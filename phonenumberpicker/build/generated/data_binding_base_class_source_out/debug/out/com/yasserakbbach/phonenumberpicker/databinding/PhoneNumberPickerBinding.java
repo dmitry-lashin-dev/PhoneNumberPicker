@@ -4,11 +4,11 @@ package com.yasserakbbach.phonenumberpicker.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.yasserakbbach.phonenumberpicker.R;
@@ -21,7 +21,7 @@ public final class PhoneNumberPickerBinding implements ViewBinding {
   private final LinearLayout rootView;
 
   @NonNull
-  public final EditText etPhoneNumber;
+  public final AppCompatEditText etPhoneNumber;
 
   @NonNull
   public final ImageView ivCountryFlag;
@@ -35,9 +35,9 @@ public final class PhoneNumberPickerBinding implements ViewBinding {
   @NonNull
   public final View pickerDivider;
 
-  private PhoneNumberPickerBinding(@NonNull LinearLayout rootView, @NonNull EditText etPhoneNumber,
-      @NonNull ImageView ivCountryFlag, @NonNull ImageView ivSelectArrow,
-      @NonNull View phoneDivider, @NonNull View pickerDivider) {
+  private PhoneNumberPickerBinding(@NonNull LinearLayout rootView,
+      @NonNull AppCompatEditText etPhoneNumber, @NonNull ImageView ivCountryFlag,
+      @NonNull ImageView ivSelectArrow, @NonNull View phoneDivider, @NonNull View pickerDivider) {
     this.rootView = rootView;
     this.etPhoneNumber = etPhoneNumber;
     this.ivCountryFlag = ivCountryFlag;
@@ -74,7 +74,7 @@ public final class PhoneNumberPickerBinding implements ViewBinding {
     int id;
     missingId: {
       id = R.id.etPhoneNumber;
-      EditText etPhoneNumber = ViewBindings.findChildViewById(rootView, id);
+      AppCompatEditText etPhoneNumber = ViewBindings.findChildViewById(rootView, id);
       if (etPhoneNumber == null) {
         break missingId;
       }
